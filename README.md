@@ -2,11 +2,7 @@
 
 [Distracted Driver Detection](https://www.kaggle.com/c/state-farm-distracted-driver-detection)
 
-![](driver.gif)
-
-## AWS
-
-由于此项目要求的计算量较大，建议使用亚马逊 p2.xlarge 云服务器来完成该项目，目前在弗吉尼亚北部有已经配置好了环境的 AMI 可以使用。参考：[在aws上配置深度学习主机 ](https://zhuanlan.zhihu.com/p/25066187)
+![](images/driver.gif)
 
 ## 描述
 
