@@ -1,2 +1,4 @@
 *.bak
 .idea/
+.ipynb_checkpoints/
+models/
