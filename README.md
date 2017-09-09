@@ -30,48 +30,25 @@
 
 如果你下载有困难，可以点这里:[百度云](http://pan.baidu.com/s/1dFzd0at)
 
-## 建议
+## 报告说明
 
-建议使用 OpenCV, tensorflow, Keras 完成该项目。其他的工具也可以尝试，比如 caffe, mxnet 等。
+* 开题报告: proposal.pdf
+* 毕业项目报告: capstone.pdf
 
-* [OpenCV](https://github.com/opencv/opencv)
-* [OpenCV python tutorials](http://docs.opencv.org/3.1.0/d6/d00/tutorial_py_root.html)
-* [tensorflow](https://github.com/tensorflow/tensorflow)
-* [Keras](https://github.com/fchollet/keras)
-* [Keras 中文文档](http://keras-cn.readthedocs.io/)
+## 代码说明
 
-### 建议模型
+* 预处理代码:  拆分数据集 splite_valid.py  预处理代码 write_bottleneck.py
 
-如果你不知道如何去构建你的模型，可以尝试以下的模型，后面的数字代表年份和月份：
+* 模型训练代码：main.ipynb
 
-* [LeNet](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf) 1998
-* [AlexNet](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf) 12
-* [VGGNet](https://arxiv.org/abs/1409.1556) 14.09
-* [GoogLeNet](https://arxiv.org/abs/1409.4842) 14.09
-* [ResNet](https://arxiv.org/abs/1512.03385) 15.12
-* [Inception v3](https://arxiv.org/abs/1512.00567) 15.12
-* [Inception v4](https://arxiv.org/abs/1602.07261) 16.02
-* [Xception](https://arxiv.org/abs/1610.02357) 16.10
-* [ResNeXt](https://arxiv.org/abs/1611.05431) 16.11
+* 可视化
 
-参考代码：[deep learning models for keras](https://github.com/fchollet/deep-learning-models)
+keras-inceptionV3-visual.ipynb
 
-### 可视化
+keras-resnet50-visual.ipynb
 
-我们不仅需要模型预测得准，还希望模型能够解释原因，因此我们可以参考这篇论文里的方法，对我们的网络关注的部位可视化。
+keras-vgg16-visual.ipynb
 
-参考：[Class Activation Mapping](http://cnnlocalization.csail.mit.edu/)
+keras-vgg19-visual.ipynb
 
-![](cam.jpg)
-
-## 评估
-
-你的项目会由优达学城项目评审师依照[机器学习毕业项目要求](https://review.udacity.com/#!/rubrics/273/view)来评审。请确定你已完整的读过了这个要求，并在提交前对照检查过了你的项目。提交项目必须满足所有要求中每一项才能算作项目通过。
-
-## 提交
-
-* PDF 报告文件
-* 数据预处理代码（建议使用 jupyter notebook ）
-* 模型训练代码（建议使用 jupyter notebook ）
-* notebook 导出的 html 文件
-* 包含使用的库，机器硬件，机器操作系统，训练时间等数据的 README 文档（建议使用 Markdown ）
+keras-xception-visual.ipynb
