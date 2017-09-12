@@ -2,7 +2,7 @@
 .idea/
 .ipynb_checkpoints/
 models/
-
+save_images/
 csv/
 ~$*
 ~*
