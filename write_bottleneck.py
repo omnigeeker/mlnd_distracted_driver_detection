@@ -23,8 +23,8 @@ def write_gap(MODEL, image_size, lambda_func=None):
 
     print(MODEL.__name__)
     train_gen = ImageDataGenerator(
-        featurewise_std_normalization=False,
-        samplewise_std_normalization=False,
+        featurewise_std_normalization=True,
+        samplewise_std_normalization=True,
         rotation_range=10.,
         width_shift_range=0.05,
         height_shift_range=0.05,
