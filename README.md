@@ -35,19 +35,49 @@
 * 开题报告: proposal.pdf
 * 毕业项目报告: capstone.pdf
 
-## 代码说明
+## 代码说明，依次执行以下步骤：
 
-* 预处理代码:  拆分数据集 splite_valid.py  预处理代码 write_bottleneck.py
+### 1. 拆分数据集代码
+
+splite_valid.py 
+
+### 2. 基准模型代码
+
+keras-vgg16-visual-finetune.ipynb
+
+### 3. 单模型代码
+
+keras-resnet50-visual-finetune.ipynb
+
+keras-inceptionV3-visual-finetune.ipynb
+
+keras-xception-visual-finetune.ipynb
+
+### 4. 混合模型代码
+
+生成混合模型的输入；write_bottleneck_with_fine_tune.py
+
+最终模型执行代码：main-finetune.ipynb
+
+## 下面是废弃的代码，共参考
+
+不做finetune的 生成混合模型的输入：write_bottleneck.py
+
+不做finetune的 最终混合模型代码：main-without-finetune.ipynb
+
+
+
+
+
+*  预处理代码 write_bottleneck.py
 
 * 模型训练代码：main.ipynb
 
 * 可视化
 
-keras-inceptionV3-visual.ipynb
 
-keras-resnet50-visual.ipynb
 
-keras-vgg16-visual.ipynb
+
 
 keras-vgg19-visual.ipynb
 
