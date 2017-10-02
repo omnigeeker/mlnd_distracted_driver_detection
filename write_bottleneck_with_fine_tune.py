@@ -99,11 +99,11 @@ def normal_preprocess_input(x):
 ###
 if 1:
     print("===== Train & Valid =====")
-    #write_gap("finetune", ResNet50, resnet50_weight_file, (240, 320))
+    write_gap("finetune", ResNet50, resnet50_weight_file, (240, 320))
     write_gap("finetune", Xception, xception_weight_file, (320, 480), xception.preprocess_input)
-    #write_gap("finetune", InceptionV3, inceptionV3_weight_file, (320, 480), inception_v3.preprocess_input)
+    write_gap("finetune", InceptionV3, inceptionV3_weight_file, (320, 480), inception_v3.preprocess_input)
 
     # print("===== Test =====")
-    #write_gap_test("finetune", ResNet50, resnet50_weight_file, (240, 320))
+    write_gap_test("finetune", ResNet50, resnet50_weight_file, (240, 320))
     write_gap_test("finetune", Xception, xception_weight_file, (320, 480), xception.preprocess_input)
-    #write_gap_test("finetune", InceptionV3, inceptionV3_weight_file, (320, 480), inception_v3.preprocess_input)
+    write_gap_test("finetune", InceptionV3, inceptionV3_weight_file, (320, 480), inception_v3.preprocess_input)
