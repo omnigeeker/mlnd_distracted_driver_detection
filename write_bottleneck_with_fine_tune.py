@@ -12,7 +12,7 @@ import math
 dir = "/ext/Data/distracted_driver_detection/"
 
 resnet50_weight_file = "resnet50-imagenet-finetune152.h5"
-xception_weight_file = "xception-imagenet-finetune115.h5"
+xception_weight_file = "xception-imagenet-finetune116.h5"
 inceptionV3_weight_file = "inceptionV3-imagenet-finetune172.h5"
 
 def write_gap(tag, MODEL, weight_file, image_size, lambda_func=None, featurewise_std_normalization=True):
@@ -22,11 +22,8 @@ def write_gap(tag, MODEL, weight_file, image_size, lambda_func=None, featurewise
         x = Lambda(lambda_func)(x)
     base_model = MODEL(input_tensor=x, weights=None, include_top=False)
 
-    #model = Model(base_model.input, GlobalAveragePooling2D()(base_model.output))
-    model = load_model("models/"+weight_file)
-    z = zip([x.name for x in model.layers], range(len(model.layers)))
-    for k, v in z:
-        print("{} - {}".format(k, v))
+    model = Model(base_model.input, GlobalAveragePooling2D()(base_model.output))
+    model.load_weights("models/"+weight_file, by_name=True)
 
     print(MODEL.__name__)
     train_gen = ImageDataGenerator(
@@ -43,17 +40,17 @@ def write_gap(tag, MODEL, weight_file, image_size, lambda_func=None, featurewise
         samplewise_std_normalization=False,
     )
 
-    batch_size = 16
+    batch_size = 64
     train_generator = train_gen.flow_from_directory(os.path.join(dir, 'train'), image_size, shuffle=False, batch_size=batch_size)
     print("subdior to train type {}".format(train_generator.class_indices))
     valid_generator = gen.flow_from_directory(os.path.join(dir, 'valid'), image_size, shuffle=False, batch_size=batch_size)
     print("subdior to valid type {}".format(valid_generator.class_indices))
 
-    print("predict_generator train {}".format(math.ceil(train_generator.samples/batch_size)))
-    train = model.predict_generator(train_generator, math.ceil(train_generator.samples/batch_size))
+    print("predict_generator train {}".format(math.ceil(train_generator.samples//batch_size+1)))
+    train = model.predict_generator(train_generator, math.ceil(train_generator.samples//batch_size+1))
     print("train: {}".format(train.shape))
-    print("predict_generator valid {}".format(math.ceil(valid_generator.samples/batch_size)))
-    valid = model.predict_generator(valid_generator, math.ceil(valid_generator.samples/batch_size))
+    print("predict_generator valid {}".format(math.ceil(valid_generator.samples//batch_size+1)))
+    valid = model.predict_generator(valid_generator, math.ceil(valid_generator.samples//batch_size+1))
     print("valid: {}".format(valid.shape))
     print("train label: {}".format(train_generator.classes.shape))
     print("valid label: {}".format(valid_generator.classes.shape))
@@ -66,23 +63,24 @@ def write_gap(tag, MODEL, weight_file, image_size, lambda_func=None, featurewise
         h.create_dataset("valid_label", data=valid_generator.classes)
     print("write_gap {} successed".format(Model.__name__))
 
-def write_gap_test(tag, MODEL, image_size, lambda_func=None, featurewise_std_normalization=True):
+def write_gap_test(tag, MODEL, weight_file, image_size, lambda_func=None, featurewise_std_normalization=True):
     input_tensor = Input((*image_size, 3))
     x = input_tensor
     if lambda_func:
         x = Lambda(lambda_func)(x)
-    base_model = MODEL(input_tensor=x, weights='imagenet', include_top=False)
+    base_model = MODEL(input_tensor=x, weights=None, include_top=False)
     model = Model(base_model.input, GlobalAveragePooling2D()(base_model.output))
+    model.load_weights("models/" + weight_file, by_name=True)
 
     print(MODEL.__name__)
     gen = ImageDataGenerator(
         featurewise_std_normalization=featurewise_std_normalization,
         samplewise_std_normalization=False,
     )
-    batch_size = 16
+    batch_size = 64
     test_generator = gen.flow_from_directory(os.path.join(dir, 'test'), image_size, shuffle=False, batch_size=batch_size, class_mode=None)
-    print("predict_generator test {}".format(math.ceil(test_generator.samples/batch_size)))
-    test = model.predict_generator(test_generator, math.ceil(test_generator.samples/batch_size))
+    print("predict_generator test {}".format(math.ceil(test_generator.samples//batch_size+1)))
+    test = model.predict_generator(test_generator, math.ceil(test_generator.samples//batch_size+1))
     print("test: {}".format(test.shape))
 
     print("begin create database {}".format(Model.__name__))
@@ -101,11 +99,11 @@ def normal_preprocess_input(x):
 ###
 if 1:
     print("===== Train & Valid =====")
-    write_gap("finetune", ResNet50, resnet50_weight_file, (240, 320))
+    #write_gap("finetune", ResNet50, resnet50_weight_file, (240, 320))
     write_gap("finetune", Xception, xception_weight_file, (320, 480), xception.preprocess_input)
-    write_gap("finetune", InceptionV3, inceptionV3_weight_file, (360, 480), inception_v3.preprocess_input)
+    #write_gap("finetune", InceptionV3, inceptionV3_weight_file, (320, 480), inception_v3.preprocess_input)
 
-    print("===== Test =====")
-    write_gap_test("finetune", ResNet50, resnet50_weight_file, (240, 320))
+    # print("===== Test =====")
+    #write_gap_test("finetune", ResNet50, resnet50_weight_file, (240, 320))
     write_gap_test("finetune", Xception, xception_weight_file, (320, 480), xception.preprocess_input)
-    write_gap_test("finetune", InceptionV3, inceptionV3_weight_file, (320, 480), inception_v3.preprocess_input)
+    #write_gap_test("finetune", InceptionV3, inceptionV3_weight_file, (320, 480), inception_v3.preprocess_input)
