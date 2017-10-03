@@ -65,20 +65,3 @@ keras-xception-visual-finetune.ipynb
 
 不做finetune的 最终混合模型代码：main-without-finetune.ipynb
 
-
-
-
-
-*  预处理代码 write_bottleneck.py
-
-* 模型训练代码：main.ipynb
-
-* 可视化
-
-
-
-
-
-keras-vgg19-visual.ipynb
-
-keras-xception-visual.ipynb
